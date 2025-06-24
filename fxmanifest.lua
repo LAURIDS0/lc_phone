@@ -28,4 +28,10 @@ files {
     'html/css/*.css',
     'html/img/backgrounds/*.png',
     'html/img/apps/*.png',
+    'html/fonts/*.ttf',
+}
+
+dependencies {
+    'oxmysql',
+    'ox_lib'
 }

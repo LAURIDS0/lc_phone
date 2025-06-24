@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LC Phone</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="phone-container" class="hidden">
+        <div id="phone-header">
+            <div id="phone-time">00:00</div>
+            <div id="phone-status">
+                <i class="fas fa-signal"></i>
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+        
+        <div id="phone-screen">
+            <!-- Home Screen -->
+            <div id="home-screen" class="screen active">
+                <div class="app-grid">
+                    <!-- Apps will be populated dynamically -->
+                </div>
+            </div>
+            
+            <!-- Phone App -->
+            <div id="phone-app" class="screen">
+                <div class="app-header">
+                    <h2>Phone</h2>
+                </div>
+                <div class="app-content">
+                    <div class="dialer">
+                        <input type="text" id="phone-number" placeholder="Enter number">
+                        <div class="dial-pad">
+                            <!-- 1-9 buttons -->
+                            <div class="dial-button">1</div>
+                            <div class="dial-button">2</div>
+                            <div class="dial-button">3</div>
+                            <div class="dial-button">4</div>
+                            <div class="dial-button">5</div>
+                            <div class="dial-button">6</div>
+                            <div class="dial-button">7</div>
+                            <div class="dial-button">8</div>
+                            <div class="dial-button">9</div>
+                            <div class="dial-button">*</div>
+                            <div class="dial-button">0</div>
+                            <div class="dial-button">#</div>
+                        </div>
+                        <button id="call-button" class="call-button">
+                            <i class="fas fa-phone"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Messages App -->
+            <div id="messages-app" class="screen">
+                <div class="app-header">
+                    <h2>Messages</h2>
+                </div>
+                <div class="app-content">
+                    <div class="messages-list">
+                        <!-- Messages will be populated dynamically -->
+                        <div class="empty-state">No messages</div>
+                    </div>
+                </div>
+                <button id="new-message" class="action-button">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+            
+            <!-- Contacts App -->
+            <div id="contacts-app" class="screen">
+                <div class="app-header">
+                    <h2>Contacts</h2>
+                </div>
+                <div class="app-content">
+                    <div class="contacts-list">
+                        <!-- Contacts will be populated dynamically -->
+                        <div class="empty-state">No contacts</div>
+                    </div>
+                </div>
+                <button id="new-contact" class="action-button">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+            
+            <!-- Settings App -->
+            <div id="settings-app" class="screen">
+                <div class="app-header">
+                    <h2>Settings</h2>
+                </div>
+                <div class="app-content">
+                    <div class="settings-list">
+                        <div class="setting-item">
+                            <span>Wallpaper</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <div class="setting-item">
+                            <span>Sound</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <div class="setting-item">
+                            <span>Notifications</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="phone-footer">
+            <div id="home-button"></div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
