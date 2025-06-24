@@ -29,9 +29,13 @@ files {
     'html/img/backgrounds/*.png',
     'html/img/apps/*.png',
     'html/fonts/*.ttf',
+    'html/sounds/*.ogg'
 }
 
 dependencies {
-    'oxmysql',
+    'oxmysql'
+}
+
+optional_dependencies {
     'ox_lib'
 }

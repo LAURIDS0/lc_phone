@@ -2,7 +2,7 @@ Config = {}
 
 -- General Settings
 Config.UseIdentifiers = 'license' -- Options: 'license', 'steam', 'discord', 'ip'
-Config.OpenKey = 'k' -- Default key to open the phone
+Config.OpenKey = 'm' -- Default key to open the phone
 Config.PhoneModel = `prop_npc_phone_02` -- Phone prop model
 Config.CallVolume = 0.2 -- Default call volume
 

@@ -1,7 +1,7 @@
 local isPhoneOpen = false
 local phoneData = {}
 local currentApp = nil
-local hasPhone = false
+local hasPhone = true  -- Changed default to true for easier testing
 
 -- Function to open the phone
 function OpenPhone()
@@ -9,7 +9,18 @@ function OpenPhone()
     
     TriggerServerEvent('lc_phone:server:GetPhoneData')
     isPhoneOpen = true
+    
+    -- Set NUI focus but allow player movement (last param to false)
     SetNuiFocus(true, true)
+    SetNuiFocusKeepInput(true) -- This allows movement while using NUI
+    
+    -- Disable aiming and attacking when phone is open
+    -- but allow other movement keys
+    DisableControlAction(0, 24, true) -- Attack
+    DisableControlAction(0, 25, true) -- Aim
+    DisableControlAction(0, 47, true) -- Weapon
+    DisableControlAction(0, 58, true) -- Weapon
+    
     SendNUIMessage({
         action = "openPhone"
     })
@@ -24,12 +35,36 @@ function ClosePhone()
     
     isPhoneOpen = false
     SetNuiFocus(false, false)
+    SetNuiFocusKeepInput(false) -- Reset focus
+    
+    -- Re-enable all controls
+    EnableAllControlActions(0)
+    
     SendNUIMessage({
         action = "closePhone"
     })
     
     -- Play animation
     loadPhoneAnimation('close')
+end
+
+-- Key handler function
+function HandleKeyPress()
+    if not hasPhone then
+        -- Notification that the player doesn't have a phone
+        TriggerEvent('ox_lib:notify', {
+            title = 'Phone',
+            description = 'You don\'t have a phone',
+            type = 'error'
+        })
+        return
+    end
+    
+    if isPhoneOpen then
+        ClosePhone()
+    else
+        OpenPhone()
+    end
 end
 
 -- NUI Callbacks
@@ -107,19 +142,41 @@ end)
 
 -- Commands
 RegisterCommand('phone', function()
-    if isPhoneOpen then
-        ClosePhone()
-    else
-        OpenPhone()
-    end
+    HandleKeyPress()
 end)
 
 -- Key mapping
 RegisterKeyMapping('phone', 'Open Phone', 'keyboard', Config.OpenKey)
 
+-- Control loop while phone is open
+CreateThread(function()
+    while true do
+        if isPhoneOpen then
+            -- Disable specific controls when phone is open but still allow movement
+            DisableControlAction(0, 24, true) -- Attack
+            DisableControlAction(0, 25, true) -- Aim
+            DisableControlAction(0, 47, true) -- Weapon
+            DisableControlAction(0, 58, true) -- Weapon
+            
+            -- Allow movement keys
+            EnableControlAction(0, 30, true) -- Move LR
+            EnableControlAction(0, 31, true) -- Move UD
+            EnableControlAction(0, 21, true) -- Sprint
+            EnableControlAction(0, 22, true) -- Jump
+            
+            -- Handle ESC key to close phone
+            if IsControlJustPressed(0, 177) then -- ESC key
+                ClosePhone()
+            end
+        end
+        Wait(0)
+    end
+end)
+
 -- Initialize when player loads
 AddEventHandler('onClientResourceStart', function(resourceName)
     if GetCurrentResourceName() ~= resourceName then return end
     Wait(2000) -- Wait for player to fully load
+    print('[LC Phone] Resource started - Press ' .. Config.OpenKey .. ' to open phone')
     TriggerServerEvent('lc_phone:server:PlayerLoaded')
 end)
