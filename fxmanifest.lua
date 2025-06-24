@@ -27,9 +27,9 @@ files {
     'html/img/*.png',
     'html/css/*.css',
     'html/img/backgrounds/*.png',
-    'html/img/apps/*.png',
-    'html/fonts/*.ttf',
-    'html/sounds/*.ogg'
+    -- 'html/img/apps/*.png',
+    -- 'html/fonts/*.ttf',
+    -- 'html/sounds/*.ogg'
 }
 
 dependencies {
